@@ -46,10 +46,10 @@
 }
 
 
--(void) setMessageWithType:(int)messageType
+-(void) setMessageWithType:(int)messageType withMessage:(NSString *)messageText
 {
     
-    messageTextView.text = @"This  is a test message";
+    messageTextView.text = messageText;
     
     
     NSAttributedString *attributedText = [[NSAttributedString alloc] initWithString:messageTextView.text attributes:@{ NSFontAttributeName:messageTextView.font}];

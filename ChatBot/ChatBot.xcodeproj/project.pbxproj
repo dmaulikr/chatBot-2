@@ -11,7 +11,6 @@
 		FF8524E61C9E965D001F2B3F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = FF8524E51C9E965D001F2B3F /* main.m */; };
 		FF8524E91C9E965D001F2B3F /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = FF8524E81C9E965D001F2B3F /* AppDelegate.m */; };
 		FF8524EC1C9E965D001F2B3F /* ChatBot.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = FF8524EA1C9E965D001F2B3F /* ChatBot.xcdatamodeld */; };
-		FF8524EF1C9E965D001F2B3F /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FF8524EE1C9E965D001F2B3F /* ViewController.m */; };
 		FF8524F21C9E965D001F2B3F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FF8524F01C9E965D001F2B3F /* Main.storyboard */; };
 		FF8524F41C9E965D001F2B3F /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FF8524F31C9E965D001F2B3F /* Images.xcassets */; };
 		FF8524F71C9E965D001F2B3F /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = FF8524F51C9E965D001F2B3F /* LaunchScreen.xib */; };
@@ -21,6 +20,7 @@
 		FF8525141C9EA559001F2B3F /* MessageTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FF8525131C9EA559001F2B3F /* MessageTableCell.m */; };
 		FF8525171C9EADEF001F2B3F /* ClientMessage@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = FF8525151C9EADEF001F2B3F /* ClientMessage@3x.png */; };
 		FF8525181C9EADEF001F2B3F /* ServerMessage@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = FF8525161C9EADEF001F2B3F /* ServerMessage@3x.png */; };
+		FF85251B1C9EC4BB001F2B3F /* ChatToolbarView.m in Sources */ = {isa = PBXBuildFile; fileRef = FF85251A1C9EC4BB001F2B3F /* ChatToolbarView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -43,8 +43,6 @@
 		FF8524E71C9E965D001F2B3F /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		FF8524E81C9E965D001F2B3F /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		FF8524EB1C9E965D001F2B3F /* ChatBot.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = ChatBot.xcdatamodel; sourceTree = "<group>"; };
-		FF8524ED1C9E965D001F2B3F /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		FF8524EE1C9E965D001F2B3F /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		FF8524F11C9E965D001F2B3F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		FF8524F31C9E965D001F2B3F /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		FF8524F61C9E965D001F2B3F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
@@ -59,6 +57,8 @@
 		FF8525131C9EA559001F2B3F /* MessageTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageTableCell.m; sourceTree = "<group>"; };
 		FF8525151C9EADEF001F2B3F /* ClientMessage@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ClientMessage@3x.png"; sourceTree = "<group>"; };
 		FF8525161C9EADEF001F2B3F /* ServerMessage@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ServerMessage@3x.png"; sourceTree = "<group>"; };
+		FF8525191C9EC4BB001F2B3F /* ChatToolbarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatToolbarView.h; sourceTree = "<group>"; };
+		FF85251A1C9EC4BB001F2B3F /* ChatToolbarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatToolbarView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -122,8 +122,8 @@
 			children = (
 				FF8524E71C9E965D001F2B3F /* AppDelegate.h */,
 				FF8524E81C9E965D001F2B3F /* AppDelegate.m */,
-				FF8524ED1C9E965D001F2B3F /* ViewController.h */,
-				FF8524EE1C9E965D001F2B3F /* ViewController.m */,
+				FF8525191C9EC4BB001F2B3F /* ChatToolbarView.h */,
+				FF85251A1C9EC4BB001F2B3F /* ChatToolbarView.m */,
 				FF85250C1C9E9997001F2B3F /* ChatEngine.h */,
 				FF85250D1C9E9997001F2B3F /* ChatEngine.m */,
 				FF85250F1C9EA528001F2B3F /* MessagesViewController.h */,
@@ -322,8 +322,8 @@
 			files = (
 				FF8524E91C9E965D001F2B3F /* AppDelegate.m in Sources */,
 				FF8524EC1C9E965D001F2B3F /* ChatBot.xcdatamodeld in Sources */,
+				FF85251B1C9EC4BB001F2B3F /* ChatToolbarView.m in Sources */,
 				FF8525111C9EA528001F2B3F /* MessagesViewController.m in Sources */,
-				FF8524EF1C9E965D001F2B3F /* ViewController.m in Sources */,
 				FF8524E61C9E965D001F2B3F /* main.m in Sources */,
 				FF8525141C9EA559001F2B3F /* MessageTableCell.m in Sources */,
 				FF85250E1C9E9997001F2B3F /* ChatEngine.m in Sources */,

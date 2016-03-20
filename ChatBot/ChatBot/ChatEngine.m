@@ -23,21 +23,31 @@
     return chatEngine;
 }
 
--(void)sendMessageWithCompletion:(void (^)(NSError *))block forMessage:(NSString *)chatMessage {
+-(void)sendMessageWithCompletion:(void (^)(NSString *,NSError *))block forMessage:(NSString *)chatMessage {
     
-    NSString* serverURL = [NSString stringWithFormat:@"http://www.personalityforge.com/api/chat/?apiKey=6nt5d1nJHkqbkphe&message=%@&chatBotID=63906&externalID=Gopi",chatMessage];
+    NSString* serverURL = [NSString stringWithFormat:@"http://test2.docsapp.in/ios_chatbot_api/chatbot.php?apiKey=6nt5d1nJHkqbkphe&message=%@&chatBotID=63906&externalID=Gopi",chatMessage];
     
-    NSMutableURLRequest* chatRequest = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:serverURL]];
+
+    NSString *escapedPath = [serverURL stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
+    NSLog(@"escapedPath: %@", escapedPath);
+    
+    NSMutableURLRequest* chatRequest = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:escapedPath]];
     
     AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:chatRequest];
     
     [operation  setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
         
-        NSLog(@"Chat message sent. Response receivved is: %@", operation.responseString);
+    
+//        NSString * test = @"[{\"success\":1},{\"message\":\"Hi\"}]";
+        
+        NSLog(@"%@",operation.responseString);
+        
+        NSString *botResponse = [[operation.responseString componentsSeparatedByString:@"\""] objectAtIndex:5];
+        block(botResponse,nil);
     }
                                       failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                                          NSLog(@"error: %@",  operation.responseString);
-                                          block(error);
+                                          NSLog(@"error: %@, %@",  operation.responseString, error.description);
+                                          block(nil,error);
                                       }
      
      ];

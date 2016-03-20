@@ -8,6 +8,7 @@
 
 #import "AppDelegate.h"
 #import "AFNetworkActivityIndicatorManager.h"
+#import "ChatEngine.h"
 
 
 @interface AppDelegate ()
@@ -23,6 +24,15 @@
 
     [[AFNetworkActivityIndicatorManager sharedManager] setEnabled:YES];
     
+    [[ChatEngine sharedEngine] sendMessageWithCompletion:^(NSString *botResponse, NSError *err) {
+        
+        if (!err) {
+            
+            NSLog(@"%@",botResponse);
+            
+        }
+        
+    } forMessage: @"iphone"];
     
     messagesViewController = [[MessagesViewController alloc] init];
     

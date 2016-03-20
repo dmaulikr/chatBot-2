@@ -27,11 +27,28 @@
     [messagesArray addObject:@"Test Message"];
     [messagesArray addObject:@"Test Message"];
     
+    messageTableView					=	[[UITableView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, self.view.frame.size.width, self.view.frame.size.height - 44) style:UITableViewStylePlain];
+    messageTableView.autoresizingMask	=	UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+    messageTableView.backgroundColor	=	[UIColor clearColor];
+    messageTableView.dataSource			=	self;
+    messageTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    messageTableView.delegate			=	self;
+    [self.view addSubview:messageTableView];
     
-    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    self.tableView.backgroundColor = [UIColor clearColor];
+    messageTableView.rowHeight  = 90;
     
-    self.tableView.rowHeight  = 90;
+    toolBarView								= [[ChatToolbarView alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height - 44, self.view.frame.size.width, 44)];
+    toolBarView.backgroundColor				=	[UIColor whiteColor];
+    toolBarView.delegate					=	self;
+    toolBarView.autoresizingMask			=	UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleWidth;
+    [self.view addSubview:toolBarView];
+    
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardSizeCahnged:)
+                                                 name:UIKeyboardDidShowNotification
+                                               object:nil];
+
 
     
 }
@@ -59,7 +76,7 @@
         cell = [[MessageTableCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
     
-    [cell setMessageWithType:2];
+    [cell setMessageWithType:1 withMessage:[messagesArray objectAtIndex:messagesArray.count-1]];
     return cell;
 }
 
@@ -76,5 +93,52 @@
     return  textSize.height + 50;
 
 }
+
+- (void) sendButtonPressedInChatToolbarWithText:(NSString*)inputText
+{
+    [messagesArray addObject:inputText];
+    [messageTableView reloadData];
+    
+    [messageTableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:messagesArray.count - 1 inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated:NO];
+    
+    [toolBarView resetToolbar];
+    
+}
+
+-(void) toolBarViewBeginEditing
+{
+    
+    //    messageTableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 100, 300)];
+    [messageTableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:messagesArray.count - 1 inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated:YES];
+    
+}
+
+-(void) toolBarViewEndEditing
+{
+    messageTableView.frame =  CGRectMake(0.0f, 0.0f, self.view.frame.size.width, self.view.frame.size.height - 44);
+}
+
+#pragma mark - keyboard handling
+
+
+- (void)keyboardSizeCahnged:(NSNotification*)notification
+{
+    
+    CGRect keyboardRect = [notification.userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
+    keyboardRect = [self.view convertRect:keyboardRect fromView:nil]; //this is it!
+    
+    [UIView animateWithDuration:0
+                          delay:0
+                        options:UIViewAnimationOptionCurveEaseOut
+                     animations:^{
+                         CGRect r = messageTableView.frame;
+                         r.size.height = self.view.frame.size.height - keyboardRect.size.height - 44;
+                         [messageTableView setFrame:r];
+                     } completion:nil];
+    [messageTableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:messagesArray.count - 1 inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated:YES];
+    
+}
+
+
 
 @end

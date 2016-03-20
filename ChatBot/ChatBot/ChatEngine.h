@@ -13,7 +13,7 @@
 
 + (ChatEngine *)sharedEngine;
 
--(void)sendMessageWithCompletion:(void (^)(NSError *))block forMessage:(NSString *)chatMessage;
+-(void)sendMessageWithCompletion:(void (^)(NSString* , NSError *))block forMessage:(NSString *)chatMessage;
 
 
 @end

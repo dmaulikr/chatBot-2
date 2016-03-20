@@ -7,10 +7,16 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ChatToolbarView.h"
 
-@interface MessagesViewController : UITableViewController {
+
+@interface MessagesViewController : UIViewController <ChatToolbarDelegate, UITableViewDelegate, UITableViewDataSource > {
 
     NSMutableArray* messagesArray;
+    UITableView* messageTableView;
+    ChatToolbarView* toolBarView;
+    
+    
 
 }
 

@@ -16,5 +16,6 @@
 
 }
 
--(void) setMessageWithType:(int)messageType;
+-(void) setMessageWithType:(int)messageType withMessage:(NSString *)messageText;
+
 @end
