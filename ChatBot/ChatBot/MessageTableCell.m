@@ -49,7 +49,17 @@
 -(void) setMessageWithType:(int)messageType withMessage:(NSString *)messageText
 {
     
-    messageTextView.text = messageText;
+//    if ([messageText rangeOfString:@"6nt5d1nJHkqbkphe"].location == NSNotFound) {
+//    if([messageText hasSuffix:@"6nt5d1nJHkqbkphe"]) {
+    
+        messageTextView.text = messageText;
+
+//    } else {
+//        messageTextView.text = [messageText substringToIndex:messageText.length-16];
+//    
+//    }
+    
+    
     
     
     NSAttributedString *attributedText = [[NSAttributedString alloc] initWithString:messageTextView.text attributes:@{ NSFontAttributeName:messageTextView.font}];

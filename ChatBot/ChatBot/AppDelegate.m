@@ -24,16 +24,6 @@
 
     [[AFNetworkActivityIndicatorManager sharedManager] setEnabled:YES];
     
-    [[ChatEngine sharedEngine] sendMessageWithCompletion:^(NSString *botResponse, NSError *err) {
-        
-        if (!err) {
-            
-            NSLog(@"%@",botResponse);
-            
-        }
-        
-    } forMessage: @"iphone"];
-    
     messagesViewController = [[MessagesViewController alloc] init];
     
     UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:messagesViewController];

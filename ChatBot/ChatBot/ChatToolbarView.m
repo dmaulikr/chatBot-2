@@ -35,7 +35,7 @@
     // Text field
     _textView = [[UITextView alloc] initWithFrame:CGRectMake(10, 5, self.frame.size.width -  80, 34)];
     _textView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-    _textView.backgroundColor = [UIColor lightGrayColor];
+    _textView.backgroundColor = [UIColor clearColor];
     //_textView.backgroundColor = [[UIColor redColor] colorWithAlphaComponent:.3];
     _textView.delegate = self;
     _textView.layer.cornerRadius = 3;

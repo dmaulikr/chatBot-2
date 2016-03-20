@@ -8,6 +8,7 @@
 
 #import "MessagesViewController.h"
 #import "MessageTableCell.h"
+#import "ChatEngine.h"
 
 @interface MessagesViewController ()
 
@@ -22,10 +23,6 @@
     self.navigationItem.title = @"ChatBot";
     
     messagesArray  = [NSMutableArray new];
-    [messagesArray addObject:@"Test Message"];
-    [messagesArray addObject:@"Test Message"];
-    [messagesArray addObject:@"Test Message"];
-    [messagesArray addObject:@"Test Message"];
     
     messageTableView					=	[[UITableView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, self.view.frame.size.width, self.view.frame.size.height - 44) style:UITableViewStylePlain];
     messageTableView.autoresizingMask	=	UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
@@ -50,6 +47,10 @@
                                                object:nil];
 
 
+    NSString *myString = [NSString stringWithUTF8String:"0xF09F948A"];
+    
+    NSLog(@">%@< >\U0001F50A<",myString);
+    
     
 }
 
@@ -76,7 +77,20 @@
         cell = [[MessageTableCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
     
-    [cell setMessageWithType:1 withMessage:[messagesArray objectAtIndex:messagesArray.count-1]];
+    NSLog(@"message: %@",[messagesArray objectAtIndex:indexPath.row]);
+    
+    messageText = [messagesArray objectAtIndex:indexPath.row];
+    if([messageText hasSuffix:@"6nt5d1nJHkqbkphe"]) {
+
+        messageText  = [messageText substringToIndex:messageText.length-16];
+        [cell setMessageWithType:0 withMessage:messageText];
+    }
+    
+    else {
+        [cell setMessageWithType:1 withMessage:messageText];
+
+    }
+    
     return cell;
 }
 
@@ -97,11 +111,29 @@
 - (void) sendButtonPressedInChatToolbarWithText:(NSString*)inputText
 {
     [messagesArray addObject:inputText];
-    [messageTableView reloadData];
     
-    [messageTableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:messagesArray.count - 1 inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated:NO];
     
-    [toolBarView resetToolbar];
+    [[ChatEngine sharedEngine] sendMessageWithCompletion:^(NSString *botResponse, NSError *err) {
+        
+        if (!err) {
+            
+
+            NSLog(@"%@",botResponse);
+            
+            botResponse = [botResponse stringByAppendingString:@"6nt5d1nJHkqbkphe"];
+            
+            [messagesArray addObject:botResponse];
+            [messageTableView reloadData];
+            
+            [messageTableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:messagesArray.count - 1 inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated:NO];
+            
+            [toolBarView resetToolbar];
+            
+        }
+        
+    } forMessage: inputText];
+    
+
     
 }
 
@@ -109,8 +141,11 @@
 {
     
     //    messageTableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 100, 300)];
-    [messageTableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:messagesArray.count - 1 inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated:YES];
     
+    if (messagesArray.count>1) {
+        [messageTableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:messagesArray.count - 1 inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated:YES];
+
+    }
 }
 
 -(void) toolBarViewEndEditing
@@ -135,7 +170,11 @@
                          r.size.height = self.view.frame.size.height - keyboardRect.size.height - 44;
                          [messageTableView setFrame:r];
                      } completion:nil];
+
+    if (messagesArray.count>1) {
+
     [messageTableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:messagesArray.count - 1 inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated:YES];
+    }
     
 }
 

@@ -15,6 +15,7 @@
     NSMutableArray* messagesArray;
     UITableView* messageTableView;
     ChatToolbarView* toolBarView;
+    NSString* messageText;
     
     
 
