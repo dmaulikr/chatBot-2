@@ -88,6 +88,7 @@
     
     
      }
+        [self setNeedsLayout];
     
     
 }
