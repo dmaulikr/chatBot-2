@@ -13,9 +13,11 @@
     UITextView *messageTextView;
     UILabel* statusLabel;
     UIImageView * bubbleView;
+    
+    BOOL messageType;
 
 }
 
--(void) setMessageWithType:(int)messageType withMessage:(NSString *)messageText;
+-(void) setMessageWithType:(BOOL)_messageType withMessage:(NSString *)messageText;
 
 @end

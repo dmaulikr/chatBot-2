@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		542F86401CB90EA1004B925F /* Message.m in Sources */ = {isa = PBXBuildFile; fileRef = 542F863F1CB90EA1004B925F /* Message.m */; };
 		B2A01A24AE02F4CD9C486988 /* libPods-ChatBot.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7ED9E481FC6F726B90072B69 /* libPods-ChatBot.a */; };
 		FF8524E61C9E965D001F2B3F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = FF8524E51C9E965D001F2B3F /* main.m */; };
 		FF8524E91C9E965D001F2B3F /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = FF8524E81C9E965D001F2B3F /* AppDelegate.m */; };
@@ -35,6 +36,8 @@
 
 /* Begin PBXFileReference section */
 		05F63A30F020CEC8062792A4 /* Pods-ChatBot.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ChatBot.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ChatBot/Pods-ChatBot.debug.xcconfig"; sourceTree = "<group>"; };
+		542F863E1CB90EA1004B925F /* Message.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Message.h; sourceTree = "<group>"; };
+		542F863F1CB90EA1004B925F /* Message.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Message.m; sourceTree = "<group>"; };
 		7ED9E481FC6F726B90072B69 /* libPods-ChatBot.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ChatBot.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		82BC2E1A578BD86BD399A0CF /* Pods-ChatBot.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ChatBot.release.xcconfig"; path = "Pods/Target Support Files/Pods-ChatBot/Pods-ChatBot.release.xcconfig"; sourceTree = "<group>"; };
 		FF8524E01C9E965D001F2B3F /* ChatBot.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ChatBot.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -128,6 +131,8 @@
 				FF85250D1C9E9997001F2B3F /* ChatEngine.m */,
 				FF85250F1C9EA528001F2B3F /* MessagesViewController.h */,
 				FF8525101C9EA528001F2B3F /* MessagesViewController.m */,
+				542F863E1CB90EA1004B925F /* Message.h */,
+				542F863F1CB90EA1004B925F /* Message.m */,
 				FF8525121C9EA559001F2B3F /* MessageTableCell.h */,
 				FF8525131C9EA559001F2B3F /* MessageTableCell.m */,
 				FF8524F01C9E965D001F2B3F /* Main.storyboard */,
@@ -321,6 +326,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FF8524E91C9E965D001F2B3F /* AppDelegate.m in Sources */,
+				542F86401CB90EA1004B925F /* Message.m in Sources */,
 				FF8524EC1C9E965D001F2B3F /* ChatBot.xcdatamodeld in Sources */,
 				FF85251B1C9EC4BB001F2B3F /* ChatToolbarView.m in Sources */,
 				FF8525111C9EA528001F2B3F /* MessagesViewController.m in Sources */,

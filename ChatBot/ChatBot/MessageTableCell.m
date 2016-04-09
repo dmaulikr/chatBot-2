@@ -30,7 +30,7 @@
     bubbleView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
     [self.contentView addSubview:bubbleView];
     
-    messageTextView = [[UITextView alloc] initWithFrame:CGRectMake(15, 7, bubbleView.frame.size.width - 30, bubbleView.frame.size.height - 35)];
+    messageTextView = [[UITextView alloc] initWithFrame:CGRectMake(15, 7, bubbleView.frame.size.width - 30, bubbleView.frame.size.height - 20)];
     messageTextView.font  =   [UIFont systemFontOfSize:15];
     messageTextView.textColor  =   [UIColor blackColor];
     messageTextView.backgroundColor = [UIColor clearColor];
@@ -46,7 +46,7 @@
 }
 
 
--(void) setMessageWithType:(int)messageType withMessage:(NSString *)messageText
+-(void) setMessageWithType:(BOOL)_messageType withMessage:(NSString *)messageText
 {
     
 //    if ([messageText rangeOfString:@"6nt5d1nJHkqbkphe"].location == NSNotFound) {
@@ -59,6 +59,12 @@
 //    
 //    }
     
+    messageType = _messageType;
+           [self setNeedsLayout];
+}
+
+-(void) layoutSubviews
+{
     
     
     
@@ -68,29 +74,26 @@
                                                           context:nil].size;
     CGSize textSize     =   CGSizeMake(ceilf(stringSize.width), ceilf(stringSize.height));
     
-    CGFloat messageWidth = (textSize.width > self.frame.size.width - 80) ? (self.frame.size.width - 10) : textSize.width + 10;
+    CGFloat messageWidth = ((textSize.width +50) > self.frame.size.width - 10) ? (self.frame.size.width - 10) : textSize.width + 50;
     
     
-        if (messageType==0) // input msg
-        {
-            bubbleView.image = [[UIImage imageNamed:@"ServerMessage"]
-                                stretchableImageWithLeftCapWidth:21 topCapHeight:14];
-            messageTextView.textAlignment  = NSTextAlignmentRight;
-            bubbleView.frame = CGRectMake(5, 5, messageWidth, self.frame.size.height - 10);
-    
-    
-        }else
-        {
-            bubbleView.image = [[UIImage imageNamed:@"ClientMessage"]
-                        stretchableImageWithLeftCapWidth:21 topCapHeight:14];
-            messageTextView.textAlignment  = NSTextAlignmentLeft;
-            bubbleView.frame = CGRectMake(self.frame.size.width  - messageWidth - 5, 5, messageWidth, self.frame.size.height - 10);
-    
-    
-     }
-        [self setNeedsLayout];
-    
-    
+    if (messageType) // input msg
+    {
+        bubbleView.image = [[UIImage imageNamed:@"ServerMessage"]
+                            stretchableImageWithLeftCapWidth:21 topCapHeight:14];
+        messageTextView.textAlignment  = NSTextAlignmentRight;
+        bubbleView.frame = CGRectMake(5, 5, messageWidth, self.frame.size.height - 10);
+        
+        
+    }else
+    {
+        bubbleView.image = [[UIImage imageNamed:@"ClientMessage"]
+                            stretchableImageWithLeftCapWidth:21 topCapHeight:14];
+        messageTextView.textAlignment  = NSTextAlignmentLeft;
+        bubbleView.frame = CGRectMake(self.frame.size.width  - messageWidth - 5, 5, messageWidth, self.frame.size.height - 10);
+        
+    }
+
 }
 
 @end

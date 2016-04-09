@@ -9,6 +9,7 @@
 #import "MessagesViewController.h"
 #import "MessageTableCell.h"
 #import "ChatEngine.h"
+#import "Message.h"
 
 @interface MessagesViewController ()
 
@@ -32,7 +33,7 @@
     messageTableView.delegate			=	self;
     [self.view addSubview:messageTableView];
     
-    messageTableView.rowHeight  = 90;
+    messageTableView.rowHeight  = 75;
     
     toolBarView								= [[ChatToolbarView alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height - 44, self.view.frame.size.width, 44)];
     toolBarView.backgroundColor				=	[UIColor whiteColor];
@@ -42,14 +43,9 @@
     
     
     [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(keyboardSizeCahnged:)
+                                             selector:@selector(keyboardSizeChanged:)
                                                  name:UIKeyboardDidShowNotification
                                                object:nil];
-
-
-    NSString *myString = [NSString stringWithUTF8String:"0xF09F948A"];
-    
-    NSLog(@">%@< >\U0001F50A<",myString);
     
     
 }
@@ -77,19 +73,21 @@
         cell = [[MessageTableCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
     
-    NSLog(@"message: %@",[messagesArray objectAtIndex:indexPath.row]);
-    
-    messageText = [messagesArray objectAtIndex:indexPath.row];
-    if([messageText hasSuffix:@"6nt5d1nJHkqbkphe"]) {
 
-        messageText  = [messageText substringToIndex:messageText.length-16];
-        [cell setMessageWithType:0 withMessage:messageText];
-    }
-    
-    else {
-        [cell setMessageWithType:1 withMessage:messageText];
-
-    }
+    Message* msg =  [messagesArray objectAtIndex:indexPath.row];
+    [cell setMessageWithType:msg.isBotMessage withMessage:msg.messageText];
+    NSLog(@"message: %@",msg.messageText);
+//    messageText = [messagesArray objectAtIndex:indexPath.row];
+//    if([messageText hasSuffix:@"6nt5d1nJHkqbkphe"]) {
+//
+//        messageText  = [messageText substringToIndex:msg.messageText.length-16];
+//        [cell setMessageWithType:0 withMessage:messageText];
+//    }
+//    
+//    else {
+//        [cell setMessageWithType:1 withMessage:messageText];
+//
+//    }
     
     return cell;
 }
@@ -98,19 +96,22 @@
 
 -(CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSAttributedString *attributedText = [[NSAttributedString alloc] initWithString:messagesArray[indexPath.row] attributes:@{ NSFontAttributeName:[UIFont systemFontOfSize:15]}];
+    Message* msg =  [messagesArray objectAtIndex:indexPath.row];
+
+    NSAttributedString *attributedText = [[NSAttributedString alloc] initWithString:msg.messageText attributes:@{ NSFontAttributeName:[UIFont systemFontOfSize:15]}];
     CGSize  stringSize   =   [attributedText boundingRectWithSize:CGSizeMake( self.view.frame.size.width  - 40,  CGFLOAT_MAX)
                                                           options:(NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingUsesFontLeading)
                                                           context:nil].size;
     CGSize textSize     =   CGSizeMake(ceilf(stringSize.width), ceilf(stringSize.height));
     
-    return  textSize.height + 50;
+    return  textSize.height + 35;
 
 }
 
 - (void) sendButtonPressedInChatToolbarWithText:(NSString*)inputText
 {
-    [messagesArray addObject:inputText];
+    Message* inputMsg = [[Message alloc] initWithMessageText:inputText isBotMessge:NO];
+    [messagesArray addObject:inputMsg];
     
     
     [[ChatEngine sharedEngine] sendMessageWithCompletion:^(NSString *botResponse, NSError *err) {
@@ -120,9 +121,11 @@
 
             NSLog(@"%@",botResponse);
             
-            botResponse = [botResponse stringByAppendingString:@"6nt5d1nJHkqbkphe"];
+//            botResponse = [botResponse stringByAppendingString:@"6nt5d1nJHkqbkphe"];
             
-            [messagesArray addObject:botResponse];
+            Message* botMsg = [[Message alloc] initWithMessageText:botResponse isBotMessge:YES];
+
+            [messagesArray addObject:botMsg];
             [messageTableView reloadData];
             
             [messageTableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:messagesArray.count - 1 inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated:NO];
@@ -156,7 +159,7 @@
 #pragma mark - keyboard handling
 
 
-- (void)keyboardSizeCahnged:(NSNotification*)notification
+- (void)keyboardSizeChanged:(NSNotification*)notification
 {
     
     CGRect keyboardRect = [notification.userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];

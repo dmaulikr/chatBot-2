@@ -71,14 +71,14 @@
     
     // This could be in an init method.
     [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(keyboardSizeCahnged:)
+                                             selector:@selector(keyboardSizeChanged:)
                                                  name:UIKeyboardDidShowNotification
                                                object:nil];
     
     
 }
 
-- (void)keyboardSizeCahnged:(NSNotification*)notification
+- (void)keyboardSizeChanged:(NSNotification*)notification
 {
     
     keyboardRect = [notification.userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
@@ -197,6 +197,9 @@
 #pragma mark ChatToolbar Delegate
 
 - (void) sendButtonPressed:(id)sender {
+    
+    _textView.text = [_textView.text stringByTrimmingCharactersInSet:[NSCharacterSet newlineCharacterSet]];
+
     
     if ([_delegate respondsToSelector:@selector(sendButtonPressedInChatToolbarWithText:)])
         [_delegate sendButtonPressedInChatToolbarWithText:_textView.text];
